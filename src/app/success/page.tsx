@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useCartStore } from '@/lib/store';
 import Link from 'next/link';
 
-export default function SuccessPage() {
+function SuccessContent() {
   const searchParams = useSearchParams();
   const clearCart = useCartStore((s) => s.clearCart);
   const total = searchParams.get('total');
@@ -32,5 +32,17 @@ export default function SuccessPage() {
         继续选购
       </Link>
     </div>
+  );
+}
+
+export default function SuccessPage() {
+  return (
+    <Suspense fallback={
+      <div className="max-w-lg mx-auto px-4 py-32 text-center text-zinc-500">
+        加载中...
+      </div>
+    }>
+      <SuccessContent />
+    </Suspense>
   );
 }
