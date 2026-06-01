@@ -1,7 +1,7 @@
 'use client';
 
 import { Category } from '@/lib/types';
-import { categories } from '@/data/products';
+import { siteConfig } from '@/config/site.config';
 
 interface CategoryTabsProps {
   selected: Category;
@@ -15,10 +15,10 @@ export default function CategoryTabs({ selected, onSelect }: CategoryTabsProps) 
         浏览分类
       </h2>
       <div className="flex flex-wrap justify-center gap-2">
-        {categories.map((cat) => (
+        {siteConfig.categories.map((cat) => (
           <button
             key={cat.key}
-            onClick={() => onSelect(cat.key)}
+            onClick={() => onSelect(cat.key as Category)}
             className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all cursor-pointer ${
               selected === cat.key
                 ? 'bg-zinc-900 text-white shadow-md'

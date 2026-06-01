@@ -1,6 +1,7 @@
 'use client';
 
 import { useCartStore } from '@/lib/store';
+import { siteConfig } from '@/config/site.config';
 
 export default function Navbar() {
   const count = useCartStore((s) => s.count);
@@ -10,12 +11,14 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-100">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 h-16">
         <a href="/" className="text-xl font-bold text-zinc-900 tracking-tight">
-          DrinkShop
+          {siteConfig.brandName}
         </a>
         <nav className="hidden md:flex gap-8 text-sm font-medium text-zinc-600">
-          <a href="/#hero" className="hover:text-zinc-900 transition-colors">首页</a>
-          <a href="/#products" className="hover:text-zinc-900 transition-colors">产品</a>
-          <a href="/#categories" className="hover:text-zinc-900 transition-colors">分类</a>
+          {siteConfig.navLinks.map((link) => (
+            <a key={link.href} href={link.href} className="hover:text-zinc-900 transition-colors">
+              {link.label}
+            </a>
+          ))}
         </nav>
         <div className="flex items-center gap-4">
           <button

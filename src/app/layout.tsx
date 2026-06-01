@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import CartSidebar from "@/components/CartSidebar";
 import Footer from "@/components/Footer";
 import Toast from "@/components/Toast";
+import { siteConfig } from "@/config/site.config";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,11 +18,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DrinkShop - 精选饮品，畅享每一口",
-  description: "精选全球好饮品，冷萃咖啡、鲜榨果汁、进口气泡水、手作茶饮，线上下单配送到家。",
+  title: siteConfig.seo.title,
+  description: siteConfig.seo.description,
   openGraph: {
-    title: "DrinkShop - 精选饮品",
-    description: "精选全球好饮品，线上下单配送到家。",
+    title: siteConfig.seo.ogTitle,
+    description: siteConfig.seo.ogDescription,
     type: "website",
   },
 };

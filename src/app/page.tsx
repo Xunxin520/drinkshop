@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { Category } from '@/lib/types';
-import { products } from '@/data/products';
+import { siteConfig } from '@/config/site.config';
 import Hero from '@/components/Hero';
 import CategoryTabs from '@/components/CategoryTabs';
 import ProductGrid from '@/components/ProductGrid';
@@ -12,7 +12,7 @@ export default function Home() {
   const [category, setCategory] = useState<Category>('all');
 
   const filtered = useMemo(
-    () => (category === 'all' ? products : products.filter((p) => p.category === category)),
+    () => (category === 'all' ? siteConfig.products : siteConfig.products.filter((p) => p.category === category)),
     [category]
   );
 
