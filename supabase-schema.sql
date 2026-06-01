@@ -44,3 +44,39 @@ CREATE POLICY "Admin read all orders"
 CREATE POLICY "Anyone create orders"
   ON orders FOR INSERT
   WITH CHECK (true);
+
+-- ============================================================
+-- 客户需求问卷表
+-- ============================================================
+CREATE TABLE questionnaires (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  client_name TEXT NOT NULL,
+  wechat TEXT NOT NULL,
+  email TEXT,
+  industry TEXT NOT NULL,
+  industry_other TEXT,
+  product_count TEXT,
+  styles TEXT[] DEFAULT '{}',
+  colors TEXT[] DEFAULT '{}',
+  reference_urls TEXT,
+  assets TEXT,
+  features TEXT[] DEFAULT '{}',
+  need_lang TEXT DEFAULT 'no',
+  payments TEXT[] DEFAULT '{}',
+  market TEXT DEFAULT 'china',
+  budget TEXT,
+  timeline TEXT,
+  notes TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 开放问卷表：任何人可提交，登录用户可查看
+ALTER TABLE questionnaires ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Anyone can submit questionnaire"
+  ON questionnaires FOR INSERT
+  WITH CHECK (true);
+
+CREATE POLICY "Authenticated users can view questionnaires"
+  ON questionnaires FOR SELECT
+  USING (auth.role() = 'authenticated');

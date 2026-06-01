@@ -83,6 +83,12 @@ export default function AdminPage() {
           >
             刷新
           </button>
+          <Link
+            href="/admin/questionnaires"
+            className="px-4 py-2 text-sm text-zinc-600 hover:text-zinc-900 transition-colors"
+          >
+            📋 客户需求
+          </Link>
           <button
             onClick={handleLogout}
             className="px-4 py-2 text-sm text-zinc-600 hover:text-zinc-900 transition-colors cursor-pointer"
