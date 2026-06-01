@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>独立站需求收集表 · 客户填写</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+    color: #1a1a2e;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .container { max-width: 800px; margin: 0 auto; padding: 24px 16px 80px; }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 40px 20px 32px;
+    background: white;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+  }
+  .header h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
+  .header .sub { color: #6b7280; margin-top: 6px; font-size: 15px; }
+  .header .badge {
+    display: inline-block;
+    background: #eef2ff;
+    color: #4f46e5;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  /* Sections */
+  .section {
+    background: white;
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f3f4f6;
+  }
+  .section-title .icon { font-size: 24px; }
+  .section-title .badge-required {
+    font-size: 11px;
+    background: #fef2f2;
+    color: #dc2626;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+
+  /* Form elements */
+  .field { margin-bottom: 18px; }
+  .field:last-child { margin-bottom: 0; }
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 6px;
+  }
+  label .required { color: #dc2626; margin-left: 2px; }
+  label .hint { font-weight: 400; color: #9ca3af; font-size: 12px; margin-left: 6px; }
+
+  input[type="text"],
+  input[type="url"],
+  input[type="number"],
+  input[type="email"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: inherit;
+    color: #1f2937;
+    background: #fafbfc;
+    transition: all 0.2s;
+    outline: none;
+  }
+  input:focus, textarea:focus, select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+    background: white;
+  }
+  textarea { resize: vertical; min-height: 80px; }
+  select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; }
+
+  /* Radio / Checkbox groups */
+  .option-group { display: flex; flex-wrap: wrap; gap: 10px; }
+  .option-group input[type="radio"],
+  .option-group input[type="checkbox"] { display: none; }
+  .option-group label.option {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .option-group label.option:hover { border-color: #a5b4fc; background: #f5f6ff; }
+  .option-group input:checked + label.option {
+    border-color: #667eea;
+    background: #eef2ff;
+    color: #4338ca;
+    font-weight: 600;
+  }
+
+  /* Budget row */
+  .budget-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 480px) { .budget-row { grid-template-columns: 1fr; } }
+
+  /* Submit */
+  .submit-area { text-align: center; margin-top: 24px; }
+  .btn-submit {
+    padding: 14px 48px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 16px rgba(102,126,234,0.3);
+  }
+  .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(102,126,234,0.4); }
+  .btn-submit:active { transform: translateY(0); }
+  .submit-note { color: #9ca3af; font-size: 13px; margin-top: 10px; }
+
+  /* Estimate card */
+  .estimate-card {
+    background: linear-gradient(135deg, #eef2ff, #faf5ff);
+    border: 1.5px solid #c7d2fe;
+    border-radius: 14px;
+    padding: 20px;
+    margin-top: 20px;
+    display: none;
+  }
+  .estimate-card.show { display: block; }
+  .estimate-card h3 { font-size: 16px; margin-bottom: 10px; }
+  .estimate-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 14px;
+    color: #4b5563;
+  }
+  .estimate-row.total {
+    border-top: 1.5px dashed #c7d2fe;
+    margin-top: 10px;
+    padding-top: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #4338ca;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    color: #9ca3af;
+    font-size: 13px;
+    padding-top: 12px;
+  }
+
+  /* Print */
+  @media print {
+    body { background: white; }
+    .section { box-shadow: none; border: 1px solid #e5e7eb; break-inside: avoid; }
+    .btn-submit { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <form id="questionnaire">
+    <!-- Header -->
+    <div class="header">
+      <div class="badge">📋 独立站搭建 · 需求收集</div>
+      <h1>帮我了解你想要的网站</h1>
+      <p class="sub">填写这张表，我会在 24 小时内给出方案和报价</p>
+    </div>
+
+    <!-- 1. 联系方式 -->
+    <div class="section">
+      <div class="section-title">
+        <span class="icon">📞</span> 联系方式
+        <span class="badge-required">必填</span>
+      </div>
+
+      <div class="field">
+        <label>你的名字 / 品牌名 <span class="required">*</span></label>
+        <input type="text" name="clientName" placeholder="如：张三 / 潮品服饰" required>
+      </div>
+      <div class="field">
+        <label>微信 / 手机 <span class="required">*</span></label>
+        <input type="text" name="wechat" placeholder="方便我联系你沟通细节" required>
+      </div>
+      <div class="field">
+        <label>邮箱 <span class="hint">(选填)</span></label>
+        <input type="email" name="email" placeholder="用于接收网站订单通知等">
+      </div>
+    </div>
+
+    <!-- 2. 行业与品类 -->
+    <div class="section">
+      <div class="section-title">
+        <span class="icon">🏪</span> 你卖什么？
+        <span class="badge-required">必填</span>
+      </div>
+
+      <div class="field">
+        <label>行业品类 <span class="required">*</span></label>
+        <div class="option-group" id="industry-group">
+          <div>
+            <input type="radio" name="industry" id="ind-drink" value="drink" required>
+            <label class="option" for="ind-drink">🥤 饮品零食</label>
+          </div>
+          <div>
+            <input type="radio" name="industry" id="ind-clothes" value="clothes">
+            <label class="option" for="ind-clothes">👗 服装服饰</label>
+          </div>
+          <div>
+            <input type="radio" name="industry" id="ind-food" value="food">
+            <label class="option" for="ind-food">🍱 餐饮美食</label>
+          </div>
+          <div>
+            <input type="radio" name="industry" id="ind-digital" value="digital">
+            <label class="option" for="ind-digital">📱 数码电子</label>
+          </div>
+          <div>
+            <input type="radio" name="industry" id="ind-beauty" value="beauty">
+            <label class="option" for="ind-beauty">💄 美妆护肤</label>
+          </div>
+          <div>
+            <input type="radio" name="industry" id="ind-other" value="other">
+            <label class="option" for="ind-other">📦 其他</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field" id="other-industry-field" style="display:none;">
+        <label>请说明品类</label>
+        <input type="text" name="industryOther" placeholder="如：宠物用品">
+      </div>
+
+      <div class="field">
+        <label>大概多少款商品？ <span class="required">*</span></label>
+        <div class="option-group">
+          <div>
+            <input type="radio" name="productCount" id="pc-1" value="1-10" required>
+            <label class="option" for="pc-1">1–10 款</label>
+          </div>
+          <div>
+            <input type="radio" name="productCount" id="pc-2" value="10-30">
+            <label class="option" for="pc-2">10–30 款</label>
+          </div>
+          <div>
+            <input type="radio" name="productCount" id="pc-3" value="30-100">
+            <label class="option" for="pc-3">30–100 款</label>
+          </div>
+          <div>
+            <input type="radio" name="productCount" id="pc-4" value="100+">
+            <label class="option" for="pc-4">100+ 款</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 设计风格 -->
+    <div class="section">
+      <div class="section-title">
+        <span class="icon">🎨</span> 设计偏好
+      </div>
+
+      <div class="field">
+        <label>想要的风格 <span class="hint">(可多选)</span></label>
+        <div class="option-group">
+          <div>
+            <input type="checkbox" name="style[]" id="st-minimal" value="minimal">
+            <label class="option" for="st-minimal">✨ 极简高级</label>
+          </div>
+          <div>
+            <input type="checkbox" name="style[]" id="st-cute" value="cute">
+            <label class="option" for="st-cute">🌸 可爱清新</label>
+          </div>
+          <div>
+            <input type="checkbox" name="style[]" id="st-tech" value="tech">
+            <label class="option" for="st-tech">🔧 科技潮流</label>
+          </div>
+          <div>
+            <input type="checkbox" name="style[]" id="st-luxury" value="luxury">
+            <label class="option" for="st-luxury">💎 高端奢华</label>
+          </div>
+          <div>
+            <input type="checkbox" name="style[]" id="st-warm" value="warm">
+            <label class="option" for="st-warm">🏡 温馨自然</label>
+          </div>
+          <div>
+            <input type="checkbox" name="style[]" id="st-vibrant" value="vibrant">
+            <label class="option" for="st-vibrant">🔥 活力撞色</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>主色调偏好 <span class="hint">(选 1-2 个)</span></label>
+        <div class="option-group">
+          <div>
+            <input type="checkbox" name="colors[]" id="co-black" value="black-white">
+            <label class="option" for="co-black">⚫ 黑白灰</label>
+          </div>
+          <div>
+            <input type="checkbox" name="colors[]" id="co-rose" value="rose-pink">
+            <label class="option" for="co-rose">🌹 粉/玫红</label>
+          </div>
+          <div>
+            <input type="checkbox" name="colors[]" id="co-blue" value="blue">
+            <label class="option" for="co-blue">🔵 蓝/青</label>
+          </div>
+          <div>
+            <input type="checkbox" name="colors[]" id="co-warm" value="warm">
+            <label class="option" for="co-warm">🟠 橙/暖色</label>
+          </div>
+          <div>
+            <input type="checkbox" name="colors[]" id="co-green" value="green">
+            <label class="option" for="co-green">🟢 绿/自然</label>
+          </div>
+          <div>
+            <input type="checkbox" name="colors[]" id="co-purple" value="purple">
+            <label class="option" for="co-purple">🟣 紫/深色</label>
+          </div>
+          <div>
+            <input type="checkbox" name="colors[]" id="co-gold" value="gold">
+            <label class="option" for="co-gold">🥇 金/米色</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>有没有参考网站？</label>
+        <textarea name="referenceUrls" placeholder="贴链接或描述，如：我很喜欢 ZARA 官网的简洁感，或者 https://..." rows="2"></textarea>
+      </div>
+
+      <div class="field">
+        <label>品牌 Logo 和图片 <span class="hint">(选填)</span></label>
+        <textarea name="assets" placeholder="是否已有 Logo？商品图有多少张？需要我帮你配图吗？" rows="2"></textarea>
+      </div>
+    </div>
+
+    <!-- 4. 功能需求 -->
+    <div class="section">
+      <div class="section-title">
+        <span class="icon">⚙️</span> 需要的功能
+        <span class="badge-required">必填</span>
+      </div>
+
+      <div class="field">
+        <label>基础功能 <span class="hint">(默认已包含 ✅ 商品展示 · 购物车 · 在线支付 · 订单管理)</span></label>
+        <div class="option-group" style="margin-top: 8px;">
+          <div>
+            <input type="checkbox" name="features[]" id="f-lang" value="multi-lang">
+            <label class="option" for="f-lang">🌐 多语言</label>
+          </div>
+          <div>
+            <input type="checkbox" name="features[]" id="f-member" value="member">
+            <label class="option" for="f-member">👤 会员系统</label>
+          </div>
+          <div>
+            <input type="checkbox" name="features[]" id="f-coupon" value="coupon">
+            <label class="option" for="f-coupon">🎫 优惠券/折扣</label>
+          </div>
+          <div>
+            <input type="checkbox" name="features[]" id="f-blog" value="blog">
+            <label class="option" for="f-blog">📝 博客/资讯</label>
+          </div>
+          <div>
+            <input type="checkbox" name="features[]" id="f-review" value="review">
+            <label class="option" for="f-review">⭐ 商品评价</label>
+          </div>
+          <div>
+            <input type="checkbox" name="features[]" id="f-wishlist" value="wishlist">
+            <label class="option" for="f-wishlist">❤️ 收藏心愿单</label>
+          </div>
+          <div>
+            <input type="checkbox" name="features[]" id="f-invoice" value="invoice">
+            <label class="option" for="f-invoice">🧾 发票/收据</label>
+          </div>
+          <div>
+            <input type="checkbox" name="features[]" id="f-ship" value="ship-tracking">
+            <label class="option" for="f-ship">📦 物流追踪</label>
+          </div>
+          <div>
+            <input type="checkbox" name="features[]" id="f-chat" value="chat">
+            <label class="option" for="f-chat">💬 在线客服</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>是否需要多语言？</label>
+        <div class="option-group">
+          <div>
+            <input type="radio" name="needLang" id="lang-no" value="no" checked>
+            <label class="option" for="lang-no">只要中文</label>
+          </div>
+          <div>
+            <input type="radio" name="needLang" id="lang-en" value="en">
+            <label class="option" for="lang-en">中+英</label>
+          </div>
+          <div>
+            <input type="radio" name="needLang" id="lang-multi" value="multi">
+            <label class="option" for="lang-multi">更多语言</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. 支付与物流 -->
+    <div class="section">
+      <div class="section-title">
+        <span class="icon">💳</span> 收款 &amp; 物流
+      </div>
+
+      <div class="field">
+        <label>需要的支付方式 <span class="hint">(可多选)</span></label>
+        <div class="option-group">
+          <div>
+            <input type="checkbox" name="payment[]" id="pay-stripe" value="stripe" checked>
+            <label class="option" for="pay-stripe">💳 Stripe (信用卡)</label>
+          </div>
+          <div>
+            <input type="checkbox" name="payment[]" id="pay-paypal" value="paypal">
+            <label class="option" for="pay-paypal">🅿️ PayPal</label>
+          </div>
+          <div>
+            <input type="checkbox" name="payment[]" id="pay-wx" value="wechat">
+            <label class="option" for="pay-wx">💚 微信支付</label>
+          </div>
+          <div>
+            <input type="checkbox" name="payment[]" id="pay-alipay" value="alipay">
+            <label class="option" for="pay-alipay">💙 支付宝</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>目标市场</label>
+        <div class="option-group">
+          <div>
+            <input type="radio" name="market" id="mk-domestic" value="china" checked>
+            <label class="option" for="mk-domestic">🇨🇳 国内</label>
+          </div>
+          <div>
+            <input type="radio" name="market" id="mk-global" value="global">
+            <label class="option" for="mk-global">🌍 海外/全球</label>
+          </div>
+          <div>
+            <input type="radio" name="market" id="mk-both" value="both">
+            <label class="option" for="mk-both">🔀 两个都要</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. 预算与时间 -->
+    <div class="section">
+      <div class="section-title">
+        <span class="icon">💰</span> 预算 &amp; 时间
+      </div>
+
+      <div class="field">
+        <label>预算范围 <span class="hint">(站的建设费，不含广告)</span></label>
+        <div class="option-group">
+          <div>
+            <input type="radio" name="budget" id="bud-1" value="2000-3000">
+            <label class="option" for="bud-1">¥2000–3000</label>
+          </div>
+          <div>
+            <input type="radio" name="budget" id="bud-2" value="3000-5000">
+            <label class="option" for="bud-2">¥3000–5000</label>
+          </div>
+          <div>
+            <input type="radio" name="budget" id="bud-3" value="5000-10000">
+            <label class="option" for="bud-3">¥5000–10000</label>
+          </div>
+          <div>
+            <input type="radio" name="budget" id="bud-4" value="10000+">
+            <label class="option" for="bud-4">¥10000+</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>期望多久上线？</label>
+        <div class="option-group">
+          <div>
+            <input type="radio" name="timeline" id="tl-1" value="urgent">
+            <label class="option" for="tl-1">⚡ 越快越好 (3天内)</label>
+          </div>
+          <div>
+            <input type="radio" name="timeline" id="tl-2" value="1week">
+            <label class="option" for="tl-2">📅 一周左右</label>
+          </div>
+          <div>
+            <input type="radio" name="timeline" id="tl-3" value="2weeks">
+            <label class="option" for="tl-3">📆 两周</label>
+          </div>
+          <div>
+            <input type="radio" name="timeline" id="tl-4" value="month">
+            <label class="option" for="tl-4">🗓️ 一个月</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>额外说明 <span class="hint">(选填)</span></label>
+        <textarea name="notes" placeholder="还有什么想告诉我的？比如：需要什么样的售后维护、有没有特别功能需求……" rows="3"></textarea>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-area">
+      <button type="submit" class="btn-submit">📩 提交需求 · 获取报价</button>
+      <p class="submit-note">提交后我会在 24 小时内联系你，沟通细节并给出方案</p>
+    </div>
+
+    <!-- Price estimate -->
+    <div class="estimate-card" id="estimate-card">
+      <h3>📊 预估报价（供参考，具体以沟通为准）</h3>
+      <div id="estimate-items"></div>
+      <div class="estimate-row total">
+        <span>预估总价</span>
+        <span id="estimate-total">¥0</span>
+      </div>
+    </div>
+  </form>
+
+  <div class="footer">
+    Made with ❤️ · 收到后会尽快联系你
+  </div>
+</div>
+
+<script>
+(function() {
+  const form = document.getElementById('questionnaire');
+
+  // Show/hide "other" industry
+  document.querySelectorAll('input[name="industry"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const other = document.getElementById('other-industry-field');
+      other.style.display = r.value === 'other' ? '' : 'none';
+      if (r.value !== 'other') other.querySelector('input').value = '';
+    });
+  });
+
+  // Live estimate
+  form.addEventListener('change', updateEstimate);
+  function updateEstimate() {
+    const card = document.getElementById('estimate-card');
+    const itemsEl = document.getElementById('estimate-items');
+    const totalEl = document.getElementById('estimate-total');
+    let items = [];
+    let total = 2000; // base
+
+    const budget = form.querySelector('input[name="budget"]:checked');
+    const industry = form.querySelector('input[name="industry"]:checked');
+    const features = form.querySelectorAll('input[name="features[]"]:checked');
+    const productCount = form.querySelector('input[name="productCount"]:checked');
+    const needLang = form.querySelector('input[name="needLang"]:checked');
+
+    if (!budget || !industry) {
+      card.classList.remove('show');
+      return;
+    }
+
+    items.push({ name: '基础建站（' + (industry?.parentElement?.querySelector('label')?.textContent?.trim() || '通用') + '）', price: 2000 });
+
+    const pcVal = productCount?.value;
+    if (pcVal === '30-100') { items.push({ name: '商品较多（30-100款）', price: 500 }); total += 500; }
+    if (pcVal === '100+') { items.push({ name: '大量商品（100+款）', price: 1000 }); total += 1000; }
+
+    if (features.length > 0) {
+      const featureLabels = {
+        'multi-lang': '多语言', 'member': '会员系统', 'coupon': '优惠券/折扣',
+        'blog': '博客/资讯', 'review': '商品评价', 'wishlist': '收藏心愿单',
+        'invoice': '发票/收据', 'ship-tracking': '物流追踪', 'chat': '在线客服'
+      };
+      features.forEach(f => {
+        const name = featureLabels[f.value] || f.value;
+        const add = f.value === 'member' || f.value === 'chat' ? 800 : 500;
+        items.push({ name: '+' + name, price: add });
+        total += add;
+      });
+    }
+
+    if (needLang?.value === 'en') { items.push({ name: '+中英Shopify', price: 1000 }); total += 1000; }
+    if (needLang?.value === 'multi') { items.push({ name: '+多语言', price: 2000 }); total += 2000; }
+
+    itemsEl.innerHTML = items.map(i => `<div class="estimate-row"><span>${i.name}</span><span>¥${i.price.toLocaleString()}</span></div>`).join('');
+    totalEl.textContent = '¥' + total.toLocaleString();
+    card.classList.add('show');
+  }
+
+  // Submit
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const data = new FormData(form);
+    const result = {};
+    for (const [k, v] of data.entries()) {
+      if (k.endsWith('[]')) {
+        const key = k.slice(0, -2);
+        if (!result[key]) result[key] = [];
+        result[key].push(v);
+      } else {
+        result[k] = v;
+      }
+    }
+
+    // Build message
+    let msg = '📋 网站需求收集表\n\n';
+    msg += '👤 客户: ' + (result.clientName || '未填') + '\n';
+    msg += '📱 联系方式: ' + (result.wechat || '未填') + '\n';
+    msg += '📧 邮箱: ' + (result.email || '未填') + '\n\n';
+    msg += '🏪 品类: ' + (result.industry === 'other' ? result.industryOther : result.industry) + '\n';
+    msg += '📦 商品数: ' + (result.productCount || '未选') + '\n\n';
+    msg += '🎨 风格: ' + (result['style'] || []).join('、') + '\n';
+    msg += '🎨 色调: ' + (result['colors'] || []).join('、') + '\n';
+    msg += '🔗 参考: ' + (result.referenceUrls || '无') + '\n\n';
+    msg += '⚙️ 功能: ' + (result['features'] || []).join('、') + '\n';
+    msg += '🌐 语言: ' + (result.needLang || '未选') + '\n';
+    msg += '💳 支付: ' + (result['payment'] || []).join('、') + '\n';
+    msg += '🌍 市场: ' + (result.market || '未选') + '\n\n';
+    msg += '💰 预算: ' + (result.budget || '未选') + '\n';
+    msg += '⏰ 时间: ' + (result.timeline || '未选') + '\n';
+    msg += '📝 备注: ' + (result.notes || '无') + '\n';
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(msg).then(() => {
+      alert('✅ 已复制到剪贴板！\n\n可以直接粘贴发给客户或保存在备忘录里。\n\n你也可以截图当前页面作为存档。');
+    }).catch(() => {
+      alert('提交成功！请截图保存，我会尽快联系你。\n\n' + msg);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

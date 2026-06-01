@@ -1,26 +1,10 @@
 // ============================================================
-//  站点配置文件
-//  改这里 → 整个网站就变成不同客户的店
-//  品类: drink | clothes | food | digital | beauty | custom
+//  Demo 2: 服装店 — XX潮品服饰
+//  使用方法: 把这个文件的内容全选复制, 粘贴到 site.config.ts 覆盖
 // ============================================================
 
-export interface ProductItem {
-  id: string;
-  name: string;
-  emoji: string;
-  price: number;
-  originalPrice?: number;
-  category: string;
-  description: string;
-  size: string;
-  tags: string[];
-  featured: boolean;
-  stock: number;
-  image?: string;
-}
-
 export const siteConfig = {
-  preset: 'clothes' as 'drink' | 'clothes' | 'food' | 'digital' | 'beauty' | 'custom',
+  preset: 'clothes' as const,
   brandName: '潮品服饰',
   brandSlogan: '穿出你的态度',
   brandDescription: '潮品服饰，专注年轻时尚女装。连衣裙、上衣、裤装、配饰，每周上新，七天无理由退换。',
