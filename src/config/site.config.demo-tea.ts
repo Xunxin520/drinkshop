@@ -1,28 +1,10 @@
 // ============================================================
-//  站点配置文件 — 改这里整个网站就变成不同客户的店
-//  当前预设: 茶叶店 (茗韵东方)
-//  品类: drink | clothes | food | digital | beauty | tea | custom
+//  Demo 3: 茶叶店 — 茗韵东方 · 中国茶出海
+//  FDA合规: 不写疗效、标明成分产地、加免责声明
 // ============================================================
 
-export interface ProductItem {
-  id: string;
-  name: string;
-  emoji: string;
-  price: number;
-  originalPrice?: number;
-  category: string;
-  description: string;
-  size: string;
-  tags: string[];
-  featured: boolean;
-  stock: number;
-  image?: string;
-  ingredients?: string;
-  origin?: string;
-}
-
 export const siteConfig = {
-  preset: 'tea' as 'drink' | 'clothes' | 'food' | 'digital' | 'beauty' | 'tea' | 'custom',
+  preset: 'tea' as const,
   brandName: '茗韵东方',
   brandSlogan: '一杯中国茶，半部东方韵',
   brandDescription: '精选中国核心茶产区优质茶叶，FDA注册工厂，美国合规进口。北美现货，48小时发货。',
